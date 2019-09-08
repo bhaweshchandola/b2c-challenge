@@ -1,5 +1,6 @@
 import json
 from func import distanceCal, sort_customers
+import pprint
 
 
 dub_lat, dub_lon = (53.339428, -6.257664)
@@ -16,7 +17,6 @@ for x in fir:
     dist = round(distanceCal(dub_lat, dub_lon, x["latitude"], x["longitude"]),2)
     if dist <= 100:
         customers_to_invite.append({"user_id": x["user_id"], "name": x["name"]})
-    # print("user_id: {}, distance: {}".format(x["user_id"], dist))
-
+    
 
 pprint.pprint(sort_customers(customers_to_invite))

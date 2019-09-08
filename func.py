@@ -1,10 +1,25 @@
 import math
 
 
+'''
+convert given latitude or longitude in decimal to radians
+
+input params: deg
+
+returns coordinates in radians
+'''
 def deg2rad(deg):
     return float(deg) * (math.pi/180)
 
 
+'''
+calculate the distance between dublin
+and the customer
+
+input params: lat1, lon1 (dublin coordinates), lat2, lon2 (customer coordinates)
+
+returns: distance between two coordinates
+'''
 def distanceCal(lat1, lon1, lat2, lon2):
 
     lat2 = float(lat2)
@@ -22,6 +37,14 @@ def distanceCal(lat1, lon1, lat2, lon2):
     return d
 
 
+'''
+sort the customers to be invited by 
+their user id
+
+input params: list of dictionaries containing customer user id and name
+
+returns: list of dictionaries sorted by user id in ascending
+'''
 def sort_customers(cust_invite):
 
     return sorted(cust_invite, key=lambda x: x["user_id"])
