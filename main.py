@@ -14,9 +14,9 @@ for x in fir:
     # convert string to json
     x = json.loads(x)
     # calculate the distance between the customer and dublin
-    dist = round(distanceCal(dub_lat, dub_lon, x["latitude"], x["longitude"]),2)
+    dist = round(distanceCal(dub_lat, dub_lon, x["latitude"], x["longitude"]), 2)
     if dist <= 100:
         customers_to_invite.append({"user_id": x["user_id"], "name": x["name"]})
-    
+
 
 pprint.pprint(sort_customers(customers_to_invite))
