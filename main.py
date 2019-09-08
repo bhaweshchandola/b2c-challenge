@@ -1,44 +1,22 @@
 import json
-import math
-
-dub_lat,dub_lon = (53.339428, -6.257664)
-
-def deg2rad(deg):
-    return float(deg) * (math.pi/180)
-
-def distanceCal(lat1, lon1, lat2, lon2):
-
-    lat2 = float(lat2)
-    lon2 = float(lon2)
-    R = 6371 # radius of earth
-    dlat = deg2rad(lat2-lat1)
-    dlon = deg2rad(lon2-lon1)
-
-    a = math.sin(dlat/2) * math.sin(dlat/2) + \
-        math.cos(deg2rad(lat1)) * math.cos(deg2rad(lat2)) * \
-        math.sin(dlon/2) * math.sin(dlon/2)
-    
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-    d = R * c
-    return d
+from func import distanceCal, sort_customers
 
 
-cust = open("Customers _Assignment_Coding Challenge.txt", 'r')
-fir = cust.readlines()
-# jfir = json.loads(fir)
-# print(type(fir))
-# print(type(jfir))
-# import pprint
-# pprint.pprint(jfir)
-# print(jfir["user_id"])
+dub_lat, dub_lon = (53.339428, -6.257664)
+filename = "Customers _Assignment_Coding Challenge.txt"  # file with customers list
+cust = open(filename, 'r')  # open file in readable format
+fir = cust.readlines()  # read the content of the file into a iterable variable
 
+customers_to_invite = []
+# iterate over the customers in the file
 for x in fir:
+    # convert string to json
     x = json.loads(x)
+    # calculate the distance between the customer and dublin
     dist = round(distanceCal(dub_lat, dub_lon, x["latitude"], x["longitude"]),2)
+    if dist <= 100:
+        customers_to_invite.append({"user_id": x["user_id"], "name": x["name"]})
+    # print("user_id: {}, distance: {}".format(x["user_id"], dist))
 
-    print("user_id: {}, distance: {}".format(x["user_id"],dist))
 
-
-
-
-# print(distanceCal(53.339428, -6.257664, 52.986375, -6.043701))
+pprint.pprint(sort_customers(customers_to_invite))
